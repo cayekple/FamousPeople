@@ -1,6 +1,7 @@
 package com.cayekple.famouspeople;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class FirstFragment extends Fragment {
+
+    RecyclerView mRecyclerView;
+    RecyclerView.Adapter mAdapter;
+    ArrayList<String> users;
 
     @Override
     public View onCreateView(
@@ -23,12 +32,17 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
-        });
+        mRecyclerView = view.findViewById(R.id.recycler_view);
+
+        users = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++){
+            users.add("Clem # " + i);
+        }
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAdapter = new UserAdapter(users);
+        mRecyclerView.setAdapter(mAdapter);
+
     }
 }
