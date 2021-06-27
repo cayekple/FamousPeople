@@ -10,10 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
-    ArrayList<User> users;
-    public UserAdapter(ArrayList<User> users) {
+    List<User> users;
+    public UserAdapter(List<User> users) {
         this.users = users;
     }
 

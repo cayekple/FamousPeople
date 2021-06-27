@@ -1,15 +1,21 @@
 package com.cayekple.famouspeople;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-
+@Entity
 public class User {
+    @PrimaryKey(autoGenerate = true)
     private int id;
-    private String firstName, lastName, email;
+    @ColumnInfo(name = "first_name")
+    private String firstName;
+    @ColumnInfo(name = "last_name")
+    private String lastName;
+    @ColumnInfo(name = "email")
+    private String email;
 
-    public User(int id, String firstName, String lastName, String email) {
-        this.id = id;
+    public User(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

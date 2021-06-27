@@ -9,14 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserFragment extends Fragment {
 
     RecyclerView mRecyclerView;
     RecyclerView.Adapter mAdapter;
-    ArrayList<User> users;
+//    ArrayList<User> users;
+    List<User> users;
 
     @Override
     public View onCreateView(
@@ -32,12 +35,19 @@ public class UserFragment extends Fragment {
 
         mRecyclerView = view.findViewById(R.id.recycler_view);
 
-        users = new ArrayList<>();
+//        users = new ArrayList<>();
+//
+//        for (int i = 0; i < 100; i++){
+//            User user = new User("Clemence", "Ayekple", "cayekple@live.com");
+//            users.add(user);
+//        }
 
-        for (int i = 0; i < 100; i++){
-            User user = new User(i, "Clemence", "Ayekple", "cayekple@live.com");
-            users.add(user);
-        }
+
+        AppDatabase db = Room.databaseBuilder(getContext(), AppDatabase.class, "production")
+                .allowMainThreadQueries()
+                .build();
+
+        users = db.mUserDao().getAllUsers();
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new UserAdapter(users);
